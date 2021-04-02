@@ -9,10 +9,38 @@
             }
         }
     
-        var animalNames = ['Sheep', 'Liger','Big Bird']
-    
+        npr . u ovom primeru dolazimo do obj
+        var myAnimal = AnimalMaker('Vucko');
+        
+kada u consoli radimo === myAnimal.speak() dobijamo My name is Vucko, uvek stavljati (). Pozivati funk
+moze da se odradi i sa zagradama  === myAnimal['speak']()
     
     */
+
+// looping
+
+/* 
+function AnimalMaker(name) {
+    return {
+        speak: function () {
+            console.log('My name is' , name)
+        },
+        
+    }
+}
+
+var animalNames =  ['sheep', 'liger', 'Big bird']
+var farm = [];
+
+for (var i = 0; i < animalNames.length; i++) {
+    var animal = AnimalMaker(animalNames[i])
+    farm.push(animal)
+
+    ili moze u jednoj liniji
+
+    farm.push(AnimalMaker(animalNames[i]))
+}
+*/
 
 // Animal User
 // ........Write a function, AnimalTestUser, that has one string parameter, username. It returns an object with a username property.
@@ -89,3 +117,94 @@
 //         //  friends: ['Moo', 'Zeny'],
 //         //  matches: ['Zeny']
 //         // }
+
+function AnimalTestUser(username) {
+  var args = arguments.length;
+  var otherArgs = [];
+  if (args > 1) {
+    for (var i = 1; i < args; i++) {
+      otherArgs.push(arguments[i]);
+    }
+  }
+
+  return {
+    username: username,
+    otherArgs: otherArgs,
+  };
+}
+
+var testSheep = AnimalTestUser("CottonBall", { "loves dancing": true }, [
+  1,
+  2,
+  3,
+]);
+console.log(testSheep);
+// *************************************************************************************
+
+function AnimalCreator(username, species, tagline, noises) {
+  var animal = {
+    username: username,
+    species: species,
+    tagline: tagline,
+    noises: noises,
+    friends: [],
+  };
+  return animal;
+}
+
+//moze da se uradi i bez ovog donjeg dela, samo da napisemo gore return  {} i ostalo isto. bez var animal
+
+var sheep = AnimalCreator("Cloud", "sheep", "You can count on me!", [
+  "baahhh",
+  "arrgg",
+  "chewchewchew",
+]);
+console.log(sheep);
+
+//**************************************************************************************** */
+
+function addFriend(animal, friend) {
+  animal.friends.push(friend.username);
+}
+
+var cow = AnimalCreator("Moo", "cow", "got milk", ["moo", "moooo", "boo"]);
+console.log(cow);
+var llama = AnimalCreator("Zeny", "llama", "llll", [
+  "sdf",
+  "dsfasdf",
+  "fsfsdf",
+]);
+console.log(llama);
+
+addFriend(sheep, cow);
+console.log(sheep);
+addFriend(sheep, llama);
+console.log(sheep);
+
+// ****************************************************************************************************
+
+var myFarm = [sheep, cow, llama];
+addFriend(cow, sheep);
+addFriend(llama, cow);
+console.log(myFarm);
+
+// ************************************************************************************************************
+
+function addMatchesArray(farm) {
+  for (var animal in farm) {
+    farm[animal].matches = [];
+  }
+}
+addMatchesArray(myFarm);
+console.log(myFarm[0]);
+
+// \***********************************************************************************
+
+function giveMatches(farm) {
+  for (var animal in farm) {
+    farm[animal].matches.push(farm[animal].friends[0]); // would be better as a for loop with semi colons
+  }
+}
+
+giveMatches(myFarm);
+console.log(myFarm[0]);
